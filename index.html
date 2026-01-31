@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>💌 A Question For You</title>
+  <style>
+    :root{
+      --bg1:#0b1020;
+      --bg2:#1b0b2a;
+      --card:#0f172aee;
+      --text:#f8fafc;
+      --muted:#cbd5e1;
+      --accent:#fb7185;
+      --accent2:#a78bfa;
+      --yes:#22c55e;
+      --no:#ef4444;
+      --shadow: 0 20px 60px rgba(0,0,0,.45);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      color:var(--text);
+      background: radial-gradient(1200px 800px at 20% 20%, rgba(167,139,250,.25), transparent 60%),
+                  radial-gradient(1000px 700px at 80% 70%, rgba(251,113,133,.25), transparent 60%),
+                  linear-gradient(140deg, var(--bg1), var(--bg2));
+      overflow:hidden;
+    }
+
+    /* floating hearts */
+    .heart{
+      position:absolute;
+      width:14px;height:14px;
+      transform: rotate(45deg);
+      background: rgba(251,113,133,.55);
+      filter: drop-shadow(0 10px 20px rgba(251,113,133,.25));
+      border-radius: 2px;
+      animation: floatUp linear infinite;
+      pointer-events:none;
+    }
+    .heart::before,.heart::after{
+      content:"";
+      position:absolute;
+      width:14px;height:14px;
+      border-radius:50%;
+      background: inherit;
+    }
+    .heart::before{left:-7px;top:0}
+    .heart::after{left:0;top:-7px}
+
+    @keyframes floatUp{
+      from{ transform: translateY(120vh) rotate(45deg); opacity:0}
+      10%{opacity:1}
+      to{ transform: translateY(-20vh) rotate(45deg); opacity:0}
+    }
+
+    .wrap{
+      position:relative;
+      height:100%;
+      display:grid;
+      place-items:center;
+      padding:24px;
+    }
+
+    .card{
+      width:min(720px, 92vw);
+      background: var(--card);
+      border: 1px solid rgba(148,163,184,.18);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      padding: 28px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .glow{
+      position:absolute; inset:-80px;
+      background: radial-gradient(circle at 30% 20%, rgba(251,113,133,.18), transparent 55%),
+                  radial-gradient(circle at 75% 70%, rgba(167,139,250,.18), transparent 55%);
+      filter: blur(18px);
+      pointer-events:none;
+    }
+
+    .top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom:14px;
+      position:relative;
+      z-index:1;
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 12px;
+      border-radius: 999px;
+      background: rgba(2,6,23,.55);
+      border: 1px solid rgba(148,163,184,.16);
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .badge b{color:var(--text); font-weight:700}
+    .mini{
+      display:flex; align-items:center; gap:10px;
+    }
+    .toggle{
+      cursor:pointer;
+      border:1px solid rgba(148,163,184,.20);
+      background: rgba(2,6,23,.45);
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 10px 12px;
+      font-size: 13px;
+      user-select:none;
+    }
+    .toggle:hover{color:var(--text); border-color: rgba(148,163,184,.35)}
+
+    h1{
+      margin: 6px 0 6px;
+      font-size: clamp(26px, 3.5vw, 40px);
+      line-height:1.15;
+      position:relative;
+      z-index:1;
+    }
+    p{
+      margin: 8px 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height:1.55;
+      position:relative;
+      z-index:1;
+    }
+
+    .photoRow{
+      display:flex;
+      gap:14px;
+      align-items:center;
+      margin: 18px 0 10px;
+      position:relative;
+      z-index:1;
+    }
+    .pic{
+      width:64px;height:64px;
+      border-radius: 18px;
+      border:1px solid rgba(148,163,184,.20);
+      background:
+        radial-gradient(circle at 30% 30%, rgba(251,113,133,.35), transparent 60%),
+        radial-gradient(circle at 70% 70%, rgba(167,139,250,.35), transparent 60%),
+        rgba(2,6,23,.40);
+      display:grid;
+      place-items:center;
+      font-size: 26px;
+    }
+    .names{
+      display:flex; flex-direction:column;
+      gap:2px;
+    }
+    .names .small{font-size:13px; color: rgba(203,213,225,.9)}
+    .names .big{font-size:18px; font-weight:700}
+
+    .question{
+      margin-top: 16px;
+      padding: 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(148,163,184,.16);
+      background: rgba(2,6,23,.35);
+      position:relative;
+      z-index:1;
+    }
+
+    .btnRow{
+      display:flex;
+      gap:12px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+      position:relative;
+      z-index:1;
+    }
+    button{
+      cursor:pointer;
+      border:none;
+      border-radius: 16px;
+      padding: 12px 16px;
+      font-size: 16px;
+      font-weight: 700;
+      transition: transform .08s ease, filter .2s ease, opacity .2s ease;
+      user-select:none;
+    }
+    button:active{transform: scale(.98)}
+    .yes{
+      background: linear-gradient(135deg, rgba(34,197,94,1), rgba(34,197,94,.75));
+      color: #052e16;
+      box-shadow: 0 16px 40px rgba(34,197,94,.22);
+    }
+    .yes:hover{filter:brightness(1.05)}
+    .no{
+      background: rgba(239,68,68,.10);
+      color: rgba(248,250,252,.95);
+      border: 1px solid rgba(239,68,68,.35);
+    }
+    .no:hover{filter:brightness(1.12)}
+    .later{
+      background: rgba(148,163,184,.10);
+      color: rgba(248,250,252,.92);
+      border: 1px solid rgba(148,163,184,.22);
+      font-weight:600;
+    }
+    .later:hover{filter:brightness(1.10)}
+
+    .status{
+      margin-top: 12px;
+      font-size: 14px;
+      color: rgba(226,232,240,.9);
+      min-height: 22px;
+      position:relative;
+      z-index:1;
+    }
+
+    .footer{
+      margin-top: 18px;
+      display:flex;
+      justify-content: space-between;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      color: rgba(203,213,225,.75);
+      font-size: 12px;
+      position:relative;
+      z-index:1;
+    }
+
+    .confetti{
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      overflow:hidden;
+      z-index: 2;
+    }
+    .piece{
+      position:absolute;
+      width:10px;height:16px;
+      border-radius: 4px;
+      opacity:.95;
+      animation: fall 1200ms ease-in forwards;
+    }
+    @keyframes fall{
+      0%{transform: translateY(-30px) rotate(0deg); opacity:1}
+      100%{transform: translateY(110vh) rotate(540deg); opacity:0}
+    }
+
+    /* small-screen tweaks */
+    @media (max-width: 420px){
+      .photoRow{flex-direction:column; align-items:flex-start}
+      .pic{width:58px;height:58px}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card" id="card">
+      <div class="glow"></div>
+
+      <div class="top">
+        <div class="badge">💗 <b>Valentine</b> Edition • made with love</div>
+        <div class="mini">
+          <div class="toggle" id="musicBtn">🎵 Music: Off</div>
+          <div class="toggle" id="resetBtn">↺ Reset</div>
+        </div>
+      </div>
+
+      <h1 id="title">Hey love… I made you a tiny universe ✨</h1>
+      <p id="subtitle">
+        Just one question. No pressure. Only vibes, honesty, and a little bit of magic.
+      </p>
+
+      <div class="photoRow">
+        <div class="pic">💌</div>
+        <div class="names">
+          <div class="small">From</div>
+          <div class="big" id="fromName">Your secret admirer (it’s me)</div>
+          <div class="small" id="note">PS: you look dangerously beautiful today.</div>
+        </div>
+      </div>
+
+      <div class="question" id="questionBox">
+        <h1 style="margin:0; font-size: clamp(22px, 3.2vw, 34px);">Will you be my Valentine? 🌹</h1>
+        <p style="margin-top:8px">
+          Choose what feels right — and if you tap “No”, I’ll just ask you a cuter question. 😌
+        </p>
+
+        <div class="btnRow">
+          <button class="yes" id="yesBtn">Yes 💖</button>
+          <button class="no" id="noBtn">No 🙈</button>
+          <button class="later" id="laterBtn">Not now / I’m not ready</button>
+        </div>
+
+        <div class="status" id="status"></div>
+      </div>
+
+      <div class="footer">
+        <div>Tip: turn on music if you want the full experience.</div>
+        <div id="tinySig">— made by someone who adores you</div>
+      </div>
+
+      <div class="confetti" id="confetti"></div>
+
+      <!-- Tiny embedded audio (soft chime). Replace with your own file later if you want. -->
+      <audio id="audio" preload="auto">
+        <source src="data:audio/wav;base64,UklGRpQAAABXQVZFZm10IBAAAAABAAEAgD4AAIA+AAABAAgAZGF0YVAAAAAAgICAf39/AAAAf39/AAAAf39/AAAAf39/AAAAf39/AAAAf39/AAAAf39/AAAAf39/AAAA" type="audio/wav">
+      </audio>
+    </div>
+  </div>
+
+  <script>
+    // ====== Customize these ======
+    const HER_NAME = "My Love";      // e.g. "Noémi"
+    const YOUR_NAME = "Steph";       // your name
+    // ============================
+
+    const title = document.getElementById("title");
+    const subtitle = document.getElementById("subtitle");
+    const statusEl = document.getElementById("status");
+    const fromName = document.getElementById("fromName");
+    const note = document.getElementById("note");
+
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const laterBtn = document.getElementById("laterBtn");
+    const resetBtn = document.getElementById("resetBtn");
+    const musicBtn = document.getElementById("musicBtn");
+
+    const confettiEl = document.getElementById("confetti");
+    const audio = document.getElementById("audio");
+
+    // Personalize copy
+    fromName.textContent = YOUR_NAME;
+    note.textContent = `PS: ${HER_NAME}, you make my days softer.`;
+
+    // Floating hearts background
+    function spawnHeart(){
+      const h = document.createElement("div");
+      h.className = "heart";
+      const left = Math.random() * 100;
+      const dur = 6 + Math.random() * 8;
+      const size = 10 + Math.random() * 14;
+      h.style.left = left + "vw";
+      h.style.animationDuration = dur + "s";
+      h.style.width = size + "px";
+      h.style.height = size + "px";
+      h.style.opacity = String(0.25 + Math.random() * 0.6);
+      document.body.appendChild(h);
+      setTimeout(()=>h.remove(), dur * 1000);
+    }
+    setInterval(spawnHeart, 300);
+
+    // Confetti
+    function confetti(){
+      const pieces = 120;
+      for(let i=0;i<pieces;i++){
+        const p = document.createElement("div");
+        p.className = "piece";
+        p.style.left = (Math.random()*100) + "vw";
+        p.style.top = (-20 - Math.random()*40) + "px";
+        p.style.transform = `rotate(${Math.random()*180}deg)`;
+        p.style.animationDuration = (900 + Math.random()*800) + "ms";
+        // random-ish colors via CSS variables not needed; keep simple with HSL
+        const hue = Math.floor(Math.random()*360);
+        p.style.background = `hsl(${hue} 90% 65%)`;
+        confettiEl.appendChild(p);
+        setTimeout(()=>p.remove(), 2000);
+      }
+    }
+
+    // Music toggle (tiny sound)
+    let musicOn = false;
+    function setMusicLabel(){
+      musicBtn.textContent = musicOn ? "🎵 Music: On" : "🎵 Music: Off";
+    }
+    musicBtn.addEventListener("click", async ()=>{
+      musicOn = !musicOn;
+      setMusicLabel();
+      if(musicOn){
+        try { await audio.play(); } catch(e) {}
+      } else {
+        audio.pause();
+        audio.currentTime = 0;
+      }
+    });
+    setMusicLabel();
+
+    // Save choice locally (privacy-friendly)
+    function saveChoice(choice){
+      try{
+        localStorage.setItem("valentine_choice", choice);
+        localStorage.setItem("valentine_choice_time", new Date().toISOString());
+      }catch(e){}
+    }
+
+    // “No” becomes a cute mini-flow (NOT a trap)
+    const gentleNoPrompts = [
+      "Okay 😌 Would a *tiny* dance with me change your mind? 💃🕺",
+      "No worries. What if I promise: dessert + warm hugs + your favorite movie? 🍰🎬",
+      "Fair. But… do you want to hear a secret? I really, really like you. 🙈",
+      "Understood. Last offer: a date planned by me, approved by you. 🤝✨"
+    ];
+    let noCount = 0;
+
+    function updateNoButton(){
+      // playful: button shrinks a bit but stays usable (still a real choice)
+      const scale = Math.max(0.78, 1 - noCount*0.06);
+      noBtn.style.transform = `scale(${scale})`;
+      noBtn.style.opacity = String(Math.max(0.6, 1 - noCount*0.08));
+      noBtn.textContent = noCount >= 3 ? "No (still no) 🙈" : "No 🙈";
+    }
+
+    noBtn.addEventListener("click", ()=>{
+      noCount++;
+      const idx = (noCount - 1) % gentleNoPrompts.length;
+      title.textContent = gentleNoPrompts[idx];
+      subtitle.textContent = "Whatever you choose is okay — I’m just flirting. 😌";
+      statusEl.textContent = "If you meant no, you can tap “Not now / I’m not ready” and I’ll respect it.";
+      updateNoButton();
+      saveChoice("no_clicked");
+    });
+
+    yesBtn.addEventListener("click", ()=>{
+      title.textContent = `YES?! 😭💖`;
+      subtitle.textContent = `Okay ${HER_NAME}… you just made my heart do backflips.`;
+      statusEl.textContent = "Screenshot this and send it to me 😌 (or just come get your hug).";
+      confetti();
+      if(musicOn){ audio.currentTime = 0; audio.play().catch(()=>{}); }
+      saveChoice("yes");
+      // lock buttons after yes (optional)
+      yesBtn.disabled = true;
+      noBtn.disabled = true;
+      laterBtn.disabled = true;
+      yesBtn.style.filter = "brightness(1.05)";
+    });
+
+    laterBtn.addEventListener("click", ()=>{
+      title.textContent = "Thank you for being honest 🤍";
+      subtitle.textContent = "No worries. I’m here, and I respect you — always.";
+      statusEl.textContent = "If you want, we can talk later. I’m sending you warmth, not pressure.";
+      saveChoice("not_now");
+    });
+
+    resetBtn.addEventListener("click", ()=>{
+      noCount = 0;
+      title.textContent = "Hey love… I made you a tiny universe ✨";
+      subtitle.textContent = "Just one question. No pressure. Only vibes, honesty, and a little bit of magic.";
+      statusEl.textContent = "";
+      yesBtn.disabled = false; noBtn.disabled = false; laterBtn.disabled = false;
+      noBtn.style.transform = "";
+      noBtn.style.opacity = "";
+      noBtn.textContent = "No 🙈";
+      try{ localStorage.removeItem("valentine_choice"); localStorage.removeItem("valentine_choice_time"); }catch(e){}
+    });
+  </script>
+</body>
+</html>
