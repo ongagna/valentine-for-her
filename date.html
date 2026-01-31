@@ -192,21 +192,14 @@
       100%{transform: translateY(110vh) rotate(540deg); opacity:0}
     }
 
-    /* ===== Choix interactifs ===== */
-    .choices{
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-      margin-top: 10px;
-    }
+    /* Choix interactifs */
+    .choices{display:flex; flex-direction:column; gap:10px; margin-top:10px;}
     .choice{
       width:100%;
-      display:flex;
-      align-items:center;
-      gap:12px;
+      display:flex; align-items:center; gap:12px;
       text-align:left;
-      padding: 12px 12px;
-      border-radius: 16px;
+      padding:12px;
+      border-radius:16px;
       background: rgba(2,6,23,.28);
       border: 1px solid rgba(148,163,184,.18);
       color: rgba(248,250,252,.95);
@@ -215,29 +208,14 @@
     }
     .choice:hover{ filter: brightness(1.08); border-color: rgba(148,163,184,.30); }
     .choice:active{ transform: scale(.99); }
-    .choice .emoji{
-      font-size: 22px;
-      width: 34px;
-      display:grid;
-      place-items:center;
-    }
-    .choice .txt{
-      display:flex;
-      flex-direction:column;
-      gap:2px;
-      flex:1;
-    }
-    .choice .txt b{ font-size: 15px; }
-    .choice .txt .sub{
-      font-size: 12.5px;
-      color: rgba(203,213,225,.85);
-    }
+    .choice .emoji{font-size:22px; width:34px; display:grid; place-items:center;}
+    .choice .txt{display:flex; flex-direction:column; gap:2px; flex:1;}
+    .choice .txt b{font-size:15px;}
+    .choice .txt .sub{font-size:12.5px; color: rgba(203,213,225,.85);}
     .choice .tick{
-      opacity:0;
-      transform: scale(.9);
+      opacity:0; transform: scale(.9);
       transition: opacity .2s ease, transform .2s ease;
-      font-weight: 900;
-      font-size: 16px;
+      font-weight:900; font-size:16px;
       color: rgba(248,250,252,.95);
     }
     .choice.selected{
@@ -245,43 +223,35 @@
       border-color: rgba(251,113,133,.45);
       box-shadow: 0 14px 34px rgba(251,113,133,.10);
     }
-    .choice.selected .tick{
-      opacity:1;
-      transform: scale(1);
-    }
-    .miniActions{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top: 10px;
-    }
+    .choice.selected .tick{opacity:1; transform: scale(1);}
+    .miniActions{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;}
     .miniBtn{
-      border-radius: 14px;
-      padding: 10px 12px;
+      border-radius:14px;
+      padding:10px 12px;
       background: rgba(148,163,184,.10);
       color: rgba(248,250,252,.92);
       border: 1px solid rgba(148,163,184,.22);
-      font-weight: 800;
-      font-size: 13px;
+      font-weight:800;
+      font-size:13px;
     }
     .pickStatus{
-      margin-top: 10px;
-      font-size: 13px;
+      margin-top:10px;
+      font-size:13px;
       color: rgba(226,232,240,.9);
-      min-height: 18px;
+      min-height:18px;
     }
     .stephNote{
-      margin-top: 8px;
-      font-size: 13px;
+      margin-top:8px;
+      font-size:13px;
       color: rgba(248,250,252,.92);
       background: rgba(2,6,23,.25);
       border: 1px solid rgba(148,163,184,.14);
-      padding: 12px 12px;
-      border-radius: 16px;
+      padding:12px;
+      border-radius:16px;
     }
     .stephNote b{color: rgba(248,250,252,.98)}
 
-    /* ===== Timeline animée ===== */
+    /* Timeline animée */
     .timelineHeader{
       display:flex;
       align-items:center;
@@ -293,7 +263,6 @@
       font-size: 12px;
       color: rgba(203,213,225,.75);
     }
-
     .timeline{
       margin-top: 12px;
       position: relative;
@@ -315,7 +284,6 @@
       0%,100%{filter: brightness(1); opacity:.75}
       50%{filter: brightness(1.25); opacity:1}
     }
-
     .tItem{
       position: relative;
       padding: 12px 12px 12px 16px;
@@ -324,15 +292,11 @@
       background: rgba(2,6,23,.22);
       margin: 10px 0;
       overflow:hidden;
-
       opacity: 0;
       transform: translateY(10px);
       transition: opacity .6s ease, transform .6s ease, border-color .25s ease, background .25s ease;
     }
-    .tItem.show{
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .tItem.show{opacity: 1; transform: translateY(0);}
     .tItem::before{
       content:"";
       position:absolute;
@@ -343,7 +307,6 @@
       transform: rotate(18deg);
       pointer-events:none;
     }
-
     .dot{
       position:absolute;
       left:-18px;
@@ -393,13 +356,13 @@
       <div class="glow"></div>
 
       <div class="row">
-        <div class="badge">💞 <b>Plan de rendez-vous</b> • préparé pour <span id="herName">Dorlane</span></div>
-        <div class="badge">📍 <span id="city">Paris</span> • 🗓️ <span id="dateLabel">Saint-Valentin</span></div>
+        <div class="badge">💞 <b>Plan de rendez-vous</b> • préparé pour <span id="herName">Dorlane chou</span></div>
+        <div class="badge">📍 <span id="city">Paris</span> • 🗓️ <span id="dateLabel">Saint-Valentin 2026</span></div>
       </div>
 
-      <h1>Dorlane… on fait ça version “trop mignon” 🥹💖</h1>
+      <h1>Chérie, on fait ça version “trop mignon” 🥹💖</h1>
       <p>
-        Dîner cosy, activité fun, zéro stress. Tu peux tout ajuster — moi je veux juste te voir sourire.
+        Dîner cosy, activité fun, zéro stress (donc pas de ntouma j'ai compris hahah je te taquine). Tu peux tout ajuster — moi je veux juste te voir sourire.
       </p>
 
       <div class="plan grid2">
@@ -407,8 +370,8 @@
           <h2>🌆 1) Début doux : petite balade à Paris</h2>
           <div class="meta">~18:00 • énergie “sans pression”</div>
           <ul>
-            <li>On se retrouve + un gros câlin (obligatoire 😌).</li>
-            <li>On marche tranquillement, juste pour se mettre bien.</li>
+            <li>On se retrouve + un gros câlin (obligatoire et non négotiable 😌).</li>
+            <li>On marche tranquillement, juste pour se mettre bien comme les whities.</li>
             <li>Mini jeu : chacun dit une chose qu’il apprécie chez l’autre.</li>
           </ul>
         </div>
@@ -418,12 +381,11 @@
           <div class="meta">~19:00 • bougies + douceur</div>
           <ul>
             <li>Un endroit intimiste : lumière chaude, ambiance tranquille.</li>
-            <li>On partage une entrée (oui, c’est mignon).</li>
+            <li>On partage une entrée (oui oui, c’est mignon).</li>
             <li>Dessert obligatoire. On choisit ensemble.</li>
           </ul>
         </div>
 
-        <!-- ACTIVITÉ FUN INTERACTIVE -->
         <div class="slot" id="funSlot">
           <h2>🎯 3) Activité fun (tape pour choisir)</h2>
           <div class="meta">~20:45 • mode “on rigole” activé</div>
@@ -442,7 +404,7 @@
               <span class="emoji">🎳</span>
               <span class="txt">
                 <b>Bowling / mini-golf</b>
-                <span class="sub">Team Dorlane + Steph 😄</span>
+                <span class="sub">Team Dorlane + Chéri 😄</span>
               </span>
               <span class="tick" aria-hidden="true">✓</span>
             </button>
@@ -463,7 +425,7 @@
           </div>
 
           <div class="pickStatus" id="pickStatus"></div>
-          <div class="stephNote" id="stephNote"><b>Note de Steph :</b> Choisis ton activité et je m’adapte 😌</div>
+          <div class="stephNote" id="stephNote"><b>Note de ton chéri :</b> Choisis ton activité et je m’adapte 😌</div>
         </div>
 
         <div class="slot">
@@ -472,11 +434,10 @@
           <ul>
             <li>Chocolat chaud / thé dans un endroit tranquille.</li>
             <li>Je te donne une petite note écrite à la main.</li>
-            <li>On termine par un long câlin et un “à très vite”.</li>
+            <li>On termine par un long câlin (toujours les câlins, ah bas ça 😌).</li>
           </ul>
         </div>
 
-        <!-- Timeline animée -->
         <div class="slot" style="grid-column: span 12;" id="timelineSlot">
           <div class="timelineHeader">
             <div>
@@ -512,13 +473,74 @@
     </div>
   </div>
 
+  <!-- Overlay musique sur la page 2 (iPhone: clic requis aussi) -->
+  <div id="musicGate2" style="
+    position:fixed; inset:0; z-index:9999;
+    display:none;
+    align-items:center; justify-content:center;
+    padding:24px;
+    background: radial-gradient(900px 600px at 30% 20%, rgba(167,139,250,.25), transparent 60%),
+                radial-gradient(800px 600px at 70% 80%, rgba(251,113,133,.25), transparent 60%),
+                rgba(2,6,23,.88);
+    backdrop-filter: blur(8px);
+  ">
+    <div style="
+      width:min(560px, 94vw);
+      border-radius:24px;
+      border:1px solid rgba(148,163,184,.18);
+      background: rgba(15,23,42,.92);
+      box-shadow: 0 20px 60px rgba(0,0,0,.45);
+      padding:22px;
+      text-align:center;
+    ">
+      <div style="font-size:28px; margin-bottom:8px;">🎵💖</div>
+      <div style="font-weight:900; font-size:18px; margin-bottom:6px;">
+        Reprendre la musique ?
+      </div>
+      <div style="color: rgba(203,213,225,.9); font-size:14px; line-height:1.5; margin-bottom:14px;">
+        Tu dois cliquer pour relancer la musique sur cette page.
+      </div>
+
+      <button id="resumeMusicBtn" style="
+        cursor:pointer;
+        border:none;
+        border-radius:16px;
+        padding:12px 16px;
+        font-size:15px;
+        font-weight:900;
+        background: linear-gradient(135deg, rgba(34,197,94,1), rgba(34,197,94,.75));
+        color:#052e16;
+        box-shadow: 0 16px 40px rgba(34,197,94,.18);
+        width:100%;
+      ">Reprendre la musique</button>
+
+      <button id="noMusicBtn" style="
+        cursor:pointer;
+        margin-top:10px;
+        border-radius:16px;
+        padding:12px 16px;
+        font-size:14px;
+        font-weight:800;
+        background: rgba(148,163,184,.10);
+        color: rgba(248,250,252,.92);
+        border: 1px solid rgba(148,163,184,.22);
+        width:100%;
+      ">Rester sans musique</button>
+    </div>
+  </div>
+
+  <!-- Player YouTube caché -->
+  <div id="ytWrap2" style="position:fixed; width:1px; height:1px; overflow:hidden; left:-9999px; top:-9999px;">
+    <div id="ytPlayer2"></div>
+  </div>
+  <script src="https://www.youtube.com/iframe_api"></script>
+
   <script>
-    // Personnalisation
     const HER_NAME = "Dorlane";
     const CITY = "Paris";
     const DATE_LABEL = "Saint-Valentin";
 
-    // Ton numéro WhatsApp (format international sans "+")
+    // WhatsApp (format international sans "+")
     const WHATSAPP_NUMBER = "41792667698";
 
     document.getElementById("herName").textContent = HER_NAME;
@@ -529,8 +551,7 @@
     const confettiEl = document.getElementById("confetti");
 
     function confetti(intensity = 120){
-      const pieces = intensity;
-      for(let i=0;i<pieces;i++){
+      for(let i=0;i<intensity;i++){
         const p = document.createElement("div");
         p.className = "piece";
         p.style.left = (Math.random()*100) + "vw";
@@ -542,7 +563,6 @@
         setTimeout(()=>p.remove(), 2000);
       }
     }
-    // confetti d’accueil léger
     confetti(90);
 
     // Affiche si “Oui” a été enregistré
@@ -554,7 +574,7 @@
       }
     }catch(e){}
 
-    // ===== Timeline animée (avec mise à jour selon activité) =====
+    // ===== Timeline =====
     const timelineEl = document.getElementById("timeline");
 
     function timelineData(activity){
@@ -586,17 +606,32 @@
           <div class="tDesc">${it.desc}</div>
         `;
         timelineEl.appendChild(div);
-
-        // animation en cascade
         setTimeout(() => div.classList.add("show"), 120 + idx * 140);
       });
 
-      // surligne l’étape activité si elle est choisie
       if(activity){
         const third = timelineEl.querySelectorAll(".tItem")[2];
         if(third) third.classList.add("active");
       }
     }
+
+    // ===== WhatsApp =====
+    function buildWhatsappUrl(){
+      const activity = (localStorage.getItem("fun_activity_choice") || "").trim();
+      const when = DATE_LABEL ? `pour ${DATE_LABEL}` : "pour notre date";
+      const activityLine = activity ? `J’ai choisi l’activité : ${activity} 🎯` : "Je n’ai pas encore choisi l’activité 🎯";
+      const msg =
+        `Coucou Steph 💖\n` +
+        `J’ai vu ton plan à Paris… et j’adore 🥹✨\n` +
+        `${activityLine}\n` +
+        `On se fait ça ${when} ? 😘`;
+      return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+    }
+
+    document.getElementById("whatsBtn").addEventListener("click", ()=>{
+      confetti(70);
+      window.open(buildWhatsappUrl(), "_blank", "noopener,noreferrer");
+    });
 
     // ===== Boutons bas =====
     document.getElementById("confirmBtn").addEventListener("click", ()=>{
@@ -619,27 +654,7 @@
       window.location.href = "./index.html";
     });
 
-    // ===== WhatsApp pré-rempli =====
-    function buildWhatsappUrl(){
-      const activity = (localStorage.getItem("fun_activity_choice") || "").trim();
-      const when = DATE_LABEL ? `pour ${DATE_LABEL}` : "pour notre date";
-      const activityLine = activity ? `J’ai choisi l’activité : ${activity} 🎯` : "Je n’ai pas encore choisi l’activité 🎯";
-      const msg =
-        `Coucou Steph 💖\n` +
-        `J’ai vu ton plan à Paris… et j’adore 🥹✨\n` +
-        `${activityLine}\n` +
-        `On se fait ça ${when} ? 😘`;
-      const encoded = encodeURIComponent(msg);
-      return `https://wa.me/${WHATSAPP_NUMBER}?text=${encoded}`;
-    }
-
-    document.getElementById("whatsBtn").addEventListener("click", ()=>{
-      // petite célébration avant d’ouvrir WhatsApp
-      confetti(70);
-      window.open(buildWhatsappUrl(), "_blank", "noopener,noreferrer");
-    });
-
-    // ===== Activité fun interactive + mini confettis + note Steph + update timeline =====
+    // ===== Activité interactive =====
     const choiceButtons = Array.from(document.querySelectorAll(".choice"));
     const pickStatus = document.getElementById("pickStatus");
     const randomPickBtn = document.getElementById("randomPick");
@@ -652,10 +667,6 @@
       "Cabine photo (challenge)": "Cabine photo… parfait. Je veux qu’on reparte avec un souvenir qu’on garde longtemps. 📸💖"
     };
 
-    function miniConfetti(){
-      confetti(50);
-    }
-
     function setSelected(choiceText){
       choiceButtons.forEach(btn => {
         const isSel = btn.dataset.choice === choiceText;
@@ -667,13 +678,13 @@
         pickStatus.textContent = `Choisi : ${choiceText} ✅`;
         try{ localStorage.setItem("fun_activity_choice", choiceText); }catch(e){}
         stephNote.innerHTML = `<b>Note de Steph :</b> ${notesByChoice[choiceText] || "Parfait. Je m’occupe du reste 😌"}`;
-        miniConfetti();
-        renderTimeline(choiceText); // 🔥 met à jour la timeline
+        confetti(50);
+        renderTimeline(choiceText);
       }else{
         pickStatus.textContent = "";
         try{ localStorage.removeItem("fun_activity_choice"); }catch(e){}
         stephNote.innerHTML = "<b>Note de Steph :</b> Choisis ton activité et je m’adapte 😌";
-        renderTimeline(""); // reset
+        renderTimeline("");
       }
     }
 
@@ -682,14 +693,12 @@
       btn.addEventListener("click", () => setSelected(btn.dataset.choice));
     });
 
-    // Restore
+    // restore choix activité + timeline
     let saved = "";
     try{
       saved = (localStorage.getItem("fun_activity_choice") || "").trim();
       if(saved) setSelected(saved);
     }catch(e){}
-
-    // Si rien de sauvegardé : timeline par défaut
     if(!saved) renderTimeline("");
 
     randomPickBtn?.addEventListener("click", () => {
@@ -699,6 +708,73 @@
     });
 
     clearPickBtn?.addEventListener("click", () => setSelected(null));
+
+    // ===== Musique YouTube sur date.html =====
+    let ytPlayer2 = null;
+    const YT_VIDEO_ID = "hLQl3WQQoQ0"; // Adele - Someone Like You
+    const musicGate2 = document.getElementById("musicGate2");
+    const resumeMusicBtn = document.getElementById("resumeMusicBtn");
+    const noMusicBtn = document.getElementById("noMusicBtn");
+
+    // Préférence depuis index.html
+    function getMusicPref(){
+      try { return localStorage.getItem("music_pref") || "off"; } catch(e) { return "off"; }
+    }
+    function setMusicPref(pref){
+      try { localStorage.setItem("music_pref", pref); } catch(e) {}
+    }
+
+    // NOTE: sur iPhone, il faut un clic sur cette page aussi -> on affiche le gate si pref = on
+    const pref = getMusicPref();
+    if(pref === "on"){
+      musicGate2.style.display = "flex";
+    } else {
+      musicGate2.style.display = "none";
+    }
+
+    // YouTube API callback global (2ème page)
+    window.onYouTubeIframeAPIReady = function () {
+      ytPlayer2 = new YT.Player("ytPlayer2", {
+        height: "1",
+        width: "1",
+        videoId: YT_VIDEO_ID,
+        playerVars: {
+          autoplay: 0,
+          controls: 0,
+          disablekb: 1,
+          fs: 0,
+          modestbranding: 1,
+          loop: 1,
+          playlist: YT_VIDEO_ID
+        },
+        events: { onReady: () => {} }
+      });
+    };
+
+    function startYT2(){
+      if(!ytPlayer2) return;
+      try{
+        ytPlayer2.unMute();
+        ytPlayer2.setVolume(55);
+        ytPlayer2.playVideo();
+      }catch(e){}
+    }
+    function stopYT2(){
+      if(!ytPlayer2) return;
+      try{ ytPlayer2.stopVideo(); }catch(e){}
+    }
+
+    resumeMusicBtn.addEventListener("click", () => {
+      setMusicPref("on");
+      startYT2();
+      musicGate2.style.display = "none";
+    });
+
+    noMusicBtn.addEventListener("click", () => {
+      setMusicPref("off");
+      stopYT2();
+      musicGate2.style.display = "none";
+    });
   </script>
 </body>
 </html>

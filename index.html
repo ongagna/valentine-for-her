@@ -11,8 +11,6 @@
       --card:#0f172aee;
       --text:#f8fafc;
       --muted:#cbd5e1;
-      --yes:#22c55e;
-      --no:#ef4444;
       --shadow: 0 20px 60px rgba(0,0,0,.45);
     }
     *{box-sizing:border-box}
@@ -47,7 +45,6 @@
     }
     .heart::before{left:-7px;top:0}
     .heart::after{left:0;top:-7px}
-
     @keyframes floatUp{
       from{ transform: translateY(120vh) rotate(45deg); opacity:0}
       10%{opacity:1}
@@ -61,7 +58,6 @@
       place-items:center;
       padding:24px;
     }
-
     .card{
       width:min(720px, 92vw);
       background: var(--card);
@@ -73,7 +69,6 @@
       position:relative;
       overflow:hidden;
     }
-
     .glow{
       position:absolute; inset:-80px;
       background: radial-gradient(circle at 30% 20%, rgba(251,113,133,.18), transparent 55%),
@@ -154,11 +149,7 @@
       place-items:center;
       font-size: 26px;
     }
-    .names{
-      display:flex;
-      flex-direction:column;
-      gap:2px;
-    }
+    .names{display:flex; flex-direction:column; gap:2px;}
     .names .small{font-size:13px; color: rgba(203,213,225,.9)}
     .names .big{font-size:18px; font-weight:700}
 
@@ -264,14 +255,14 @@
       <div class="glow"></div>
 
       <div class="top">
-        <div class="badge">💗 <b>Édition Valentine</b> • fait avec amour</div>
+        <div class="badge">💗 <b>Édition Saint-Valentin 2026</b> • fait avec amour</div>
         <div class="mini">
           <div class="toggle" id="musicBtn">🎵 Musique : Off</div>
           <div class="toggle" id="resetBtn">↺ Recommencer</div>
         </div>
       </div>
 
-      <h1 id="title">Coucou… j’ai fabriqué un petit univers pour toi ✨</h1>
+      <h1 id="title">Coucou bébé, j’ai fabriqué un petit univers pour toi ✨</h1>
       <p id="subtitle">
         Une seule question. Zéro pression. Juste de la douceur, de l’honnêteté, et un peu de magie.
       </p>
@@ -286,9 +277,9 @@
       </div>
 
       <div class="question" id="questionBox">
-        <h1 style="margin:0; font-size: clamp(22px, 3.2vw, 34px);">Dorlane… veux-tu être ma Valentine ? 🌹</h1>
+        <h1 style="margin:0; font-size: clamp(22px, 3.2vw, 34px);">Dorlane chou, veux-tu être ma Valentine ? 🌹</h1>
         <p style="margin-top:8px">
-          Choisis ce qui te ressemble. Si tu appuies sur “Non”, je te taquine juste un peu… mais ton choix sera toujours respecté. 😌
+          Choisis ce que tu aimerais 😌
         </p>
 
         <div class="btnRow">
@@ -306,13 +297,69 @@
       </div>
 
       <div class="confetti" id="confetti"></div>
-
-      <!-- Petit son (très court). Tu peux remplacer par un mp3 plus tard. -->
-      <audio id="audio" preload="auto">
-        <source src="data:audio/wav;base64,UklGRpQAAABXQVZFZm10IBAAAAABAAEAgD4AAIA+AAABAAgAZGF0YVAAAAAAgICAf39/AAAAf39/AAAAf39/AAAAf39/AAAAf39/AAAAf39/AAAAf39/AAAAf39/AAAA" type="audio/wav">
-      </audio>
     </div>
   </div>
+
+  <!-- Overlay: activation musique obligatoire (iPhone-friendly) -->
+  <div id="musicGate" style="
+    position:fixed; inset:0; z-index:9999;
+    display:flex; align-items:center; justify-content:center;
+    padding:24px;
+    background: radial-gradient(900px 600px at 30% 20%, rgba(167,139,250,.25), transparent 60%),
+                radial-gradient(800px 600px at 70% 80%, rgba(251,113,133,.25), transparent 60%),
+                rgba(2,6,23,.88);
+    backdrop-filter: blur(8px);
+  ">
+    <div style="
+      width:min(560px, 94vw);
+      border-radius:24px;
+      border:1px solid rgba(148,163,184,.18);
+      background: rgba(15,23,42,.92);
+      box-shadow: 0 20px 60px rgba(0,0,0,.45);
+      padding:22px;
+      text-align:center;
+    ">
+      <div style="font-size:28px; margin-bottom:8px;">🎵💖</div>
+      <div style="font-weight:900; font-size:18px; margin-bottom:6px;">
+        Petite ambiance pour toi chérie.
+      </div>
+      <div style="color: rgba(203,213,225,.9); font-size:14px; line-height:1.5; margin-bottom:14px;">
+        Clique pour lancer la musique. (Tu peux la couper ensuite via le bouton “Musique”.)
+      </div>
+
+      <button id="enableMusicBtn" style="
+        cursor:pointer;
+        border:none;
+        border-radius:16px;
+        padding:12px 16px;
+        font-size:15px;
+        font-weight:900;
+        background: linear-gradient(135deg, rgba(34,197,94,1), rgba(34,197,94,.75));
+        color:#052e16;
+        box-shadow: 0 16px 40px rgba(34,197,94,.18);
+        width:100%;
+      ">Activer la musique</button>
+
+      <button id="skipMusicBtn" style="
+        cursor:pointer;
+        margin-top:10px;
+        border-radius:16px;
+        padding:12px 16px;
+        font-size:14px;
+        font-weight:800;
+        background: rgba(148,163,184,.10);
+        color: rgba(248,250,252,.92);
+        border: 1px solid rgba(148,163,184,.22);
+        width:100%;
+      ">Continuer sans musique</button>
+    </div>
+  </div>
+
+  <!-- Player YouTube caché -->
+  <div id="ytWrap" style="position:fixed; width:1px; height:1px; overflow:hidden; left:-9999px; top:-9999px;">
+    <div id="ytPlayer"></div>
+  </div>
+  <script src="https://www.youtube.com/iframe_api"></script>
 
   <script>
     // ====== Personnalisation ======
@@ -333,7 +380,6 @@
     const musicBtn = document.getElementById("musicBtn");
 
     const confettiEl = document.getElementById("confetti");
-    const audio = document.getElementById("audio");
 
     fromName.textContent = YOUR_NAME;
     note.textContent = `PS : ${HER_NAME}, tu rends mes journées plus douces.`;
@@ -356,8 +402,8 @@
     setInterval(spawnHeart, 300);
 
     // Confettis
-    function confetti(){
-      const pieces = 120;
+    function confetti(intensity=120){
+      const pieces = intensity;
       for(let i=0;i<pieces;i++){
         const p = document.createElement("div");
         p.className = "piece";
@@ -371,23 +417,6 @@
       }
     }
 
-    // Musique
-    let musicOn = false;
-    function setMusicLabel(){
-      musicBtn.textContent = musicOn ? "🎵 Musique : On" : "🎵 Musique : Off";
-    }
-    musicBtn.addEventListener("click", async ()=>{
-      musicOn = !musicOn;
-      setMusicLabel();
-      if(musicOn){
-        try { await audio.play(); } catch(e) {}
-      } else {
-        audio.pause();
-        audio.currentTime = 0;
-      }
-    });
-    setMusicLabel();
-
     // Sauvegarde légère
     function saveChoice(choice){
       try{
@@ -399,7 +428,7 @@
     // “Non” = taquin mais respectueux
     const gentleNoPrompts = [
       "D’accord 😌 Et si je te faisais rire 10 secondes, ça compte ? 😄",
-      "Ok… mais imagine : dîner cosy + activité fun à Paris. Ça tente ? ✨",
+      "Ok… mais imagine : dîner cosy + activité fun à Paris. Ça tente (on oublie la Fommmmmmm 😄)? ✨",
       "Je comprends 🙈 Dernière petite question : tu veux que je te surprenne doucement ? 💗",
       "C’est noté. Mais tu sais quoi ? Je te trouve incroyablement précieuse. 🌙"
     ];
@@ -416,18 +445,17 @@
       noCount++;
       const idx = (noCount - 1) % gentleNoPrompts.length;
       title.textContent = gentleNoPrompts[idx];
-      subtitle.textContent = "Quoi que tu choisisses, ça reste ok. Je flirte, je n’insiste pas. 😌";
-      statusEl.textContent = "Si tu veux dire non pour de vrai, clique “Pas maintenant” — et je respecte totalement.";
+      subtitle.textContent = "Hummmm l'histoire que j'ai engagé ci, ça va me dépasser 😌";
+      statusEl.textContent = "Si tu veux dire non pour de vrai, clique “Pas maintenant” — et je respecte totalement, mais après supprime mon numéro hein.";
       updateNoButton();
       saveChoice("no_clicked");
     });
 
     yesBtn.addEventListener("click", ()=>{
       title.textContent = `OUI ?! 😭💖`;
-      subtitle.textContent = `${HER_NAME}… tu viens de faire des salto à mon cœur.`;
+      subtitle.textContent = `${HER_NAME} chou Ikiiii tu viens de faire des salto à mon cœur.`;
       statusEl.textContent = "Ok. J’ai un plan trop mignon… prépare-toi 😌";
-      confetti();
-      if(musicOn){ audio.currentTime = 0; audio.play().catch(()=>{}); }
+      confetti(140);
       saveChoice("yes");
 
       // petit délai, puis page 2
@@ -450,7 +478,7 @@
 
     resetBtn.addEventListener("click", ()=>{
       noCount = 0;
-      title.textContent = "Coucou… j’ai fabriqué un petit univers pour toi ✨";
+      title.textContent = "Coucou mon bébé, j’ai fabriqué un petit univers pour toi ✨";
       subtitle.textContent = "Une seule question. Zéro pression. Juste de la douceur, de l’honnêteté, et un peu de magie.";
       statusEl.textContent = "";
       yesBtn.disabled = false; noBtn.disabled = false; laterBtn.disabled = false;
@@ -462,8 +490,99 @@
         localStorage.removeItem("valentine_choice_time");
         localStorage.removeItem("fun_activity_choice");
         localStorage.removeItem("date_plan_response");
+        localStorage.removeItem("music_pref");
       }catch(e){}
+      // ré-afficher l’overlay musique
+      musicGate.style.display = "flex";
+      stopYT();
+      musicOn = false;
+      setMusicLabel();
     });
+
+    // ===== Musique YouTube (Adele - Someone Like You) =====
+    let musicOn = false;
+    let ytPlayer = null;
+
+    const YT_VIDEO_ID = "hLQl3WQQoQ0"; // Adele - Someone Like You (YouTube)
+    const musicGate = document.getElementById("musicGate");
+    const enableMusicBtn = document.getElementById("enableMusicBtn");
+    const skipMusicBtn = document.getElementById("skipMusicBtn");
+
+    function setMusicLabel(){
+      musicBtn.textContent = musicOn ? "🎵 Musique : On" : "🎵 Musique : Off";
+    }
+    setMusicLabel();
+
+    window.onYouTubeIframeAPIReady = function () {
+      ytPlayer = new YT.Player("ytPlayer", {
+        height: "1",
+        width: "1",
+        videoId: YT_VIDEO_ID,
+        playerVars: {
+          autoplay: 0,
+          controls: 0,
+          disablekb: 1,
+          fs: 0,
+          modestbranding: 1,
+          loop: 1,
+          playlist: YT_VIDEO_ID
+        },
+        events: { onReady: () => {} }
+      });
+    };
+
+    function startYT(){
+      if(!ytPlayer) return;
+      try{
+        ytPlayer.unMute();
+        ytPlayer.setVolume(55);
+        ytPlayer.playVideo();
+      }catch(e){}
+    }
+
+    function stopYT(){
+      if(!ytPlayer) return;
+      try{ ytPlayer.stopVideo(); }catch(e){}
+    }
+
+    // mémorise le choix musique pour date.html
+    function setMusicPref(pref){
+      try{ localStorage.setItem("music_pref", pref); }catch(e){}
+    }
+
+    enableMusicBtn.addEventListener("click", () => {
+      musicOn = true;
+      setMusicLabel();
+      setMusicPref("on");
+      startYT();
+      musicGate.style.display = "none";
+    });
+
+    skipMusicBtn.addEventListener("click", () => {
+      musicOn = false;
+      setMusicLabel();
+      setMusicPref("off");
+      stopYT();
+      musicGate.style.display = "none";
+    });
+
+    // Toggle en haut à droite
+    musicBtn.addEventListener("click", () => {
+      musicOn = !musicOn;
+      setMusicLabel();
+
+      if(musicOn){
+        // Sur iPhone: il faut un geste utilisateur -> on ré-affiche le gate
+        setMusicPref("on");
+        musicGate.style.display = "flex";
+      } else {
+        setMusicPref("off");
+        stopYT();
+      }
+    });
+
+    // Si l’utilisateur avait déjà choisi “off” auparavant, on peut masquer direct (optionnel)
+    // Ici on laisse le gate au premier chargement pour forcer la décision.
   </script>
 </body>
 </html>
