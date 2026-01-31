@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>💌 A Question For You</title>
+  <title>💌 Une question pour toi</title>
   <style>
     :root{
       --bg1:#0b1020;
@@ -11,8 +11,6 @@
       --card:#0f172aee;
       --text:#f8fafc;
       --muted:#cbd5e1;
-      --accent:#fb7185;
-      --accent2:#a78bfa;
       --yes:#22c55e;
       --no:#ef4444;
       --shadow: 0 20px 60px rgba(0,0,0,.45);
@@ -29,7 +27,7 @@
       overflow:hidden;
     }
 
-    /* floating hearts */
+    /* petits cœurs flottants */
     .heart{
       position:absolute;
       width:14px;height:14px;
@@ -157,7 +155,8 @@
       font-size: 26px;
     }
     .names{
-      display:flex; flex-direction:column;
+      display:flex;
+      flex-direction:column;
       gap:2px;
     }
     .names .small{font-size:13px; color: rgba(203,213,225,.9)}
@@ -253,7 +252,6 @@
       100%{transform: translateY(110vh) rotate(540deg); opacity:0}
     }
 
-    /* small-screen tweaks */
     @media (max-width: 420px){
       .photoRow{flex-direction:column; align-items:flex-start}
       .pic{width:58px;height:58px}
@@ -266,50 +264,50 @@
       <div class="glow"></div>
 
       <div class="top">
-        <div class="badge">💗 <b>Valentine</b> Edition • made with love</div>
+        <div class="badge">💗 <b>Édition Valentine</b> • fait avec amour</div>
         <div class="mini">
-          <div class="toggle" id="musicBtn">🎵 Music: Off</div>
-          <div class="toggle" id="resetBtn">↺ Reset</div>
+          <div class="toggle" id="musicBtn">🎵 Musique : Off</div>
+          <div class="toggle" id="resetBtn">↺ Recommencer</div>
         </div>
       </div>
 
-      <h1 id="title">Hey love… I made you a tiny universe ✨</h1>
+      <h1 id="title">Coucou… j’ai fabriqué un petit univers pour toi ✨</h1>
       <p id="subtitle">
-        Just one question. No pressure. Only vibes, honesty, and a little bit of magic.
+        Une seule question. Zéro pression. Juste de la douceur, de l’honnêteté, et un peu de magie.
       </p>
 
       <div class="photoRow">
         <div class="pic">💌</div>
         <div class="names">
-          <div class="small">From</div>
-          <div class="big" id="fromName">Your secret admirer (it’s me)</div>
-          <div class="small" id="note">PS: you look dangerously beautiful today.</div>
+          <div class="small">De</div>
+          <div class="big" id="fromName">Steph</div>
+          <div class="small" id="note">PS : tu es dangereusement belle aujourd’hui.</div>
         </div>
       </div>
 
       <div class="question" id="questionBox">
-        <h1 style="margin:0; font-size: clamp(22px, 3.2vw, 34px);">Will you be my Valentine? 🌹</h1>
+        <h1 style="margin:0; font-size: clamp(22px, 3.2vw, 34px);">Dorlane… veux-tu être ma Valentine ? 🌹</h1>
         <p style="margin-top:8px">
-          Choose what feels right — and if you tap “No”, I’ll just ask you a cuter question. 😌
+          Choisis ce qui te ressemble. Si tu appuies sur “Non”, je te taquine juste un peu… mais ton choix sera toujours respecté. 😌
         </p>
 
         <div class="btnRow">
-          <button class="yes" id="yesBtn">Yes 💖</button>
-          <button class="no" id="noBtn">No 🙈</button>
-          <button class="later" id="laterBtn">Not now / I’m not ready</button>
+          <button class="yes" id="yesBtn">Oui 💖</button>
+          <button class="no" id="noBtn">Non 🙈</button>
+          <button class="later" id="laterBtn">Pas maintenant / Je ne suis pas prête</button>
         </div>
 
         <div class="status" id="status"></div>
       </div>
 
       <div class="footer">
-        <div>Tip: turn on music if you want the full experience.</div>
-        <div id="tinySig">— made by someone who adores you</div>
+        <div>Astuce : active la musique pour l’effet complet.</div>
+        <div id="tinySig">— signé : quelqu’un qui t’adore</div>
       </div>
 
       <div class="confetti" id="confetti"></div>
 
-      <!-- Tiny embedded audio (soft chime). Replace with your own file later if you want. -->
+      <!-- Petit son (très court). Tu peux remplacer par un mp3 plus tard. -->
       <audio id="audio" preload="auto">
         <source src="data:audio/wav;base64,UklGRpQAAABXQVZFZm10IBAAAAABAAEAgD4AAIA+AAABAAgAZGF0YVAAAAAAgICAf39/AAAAf39/AAAAf39/AAAAf39/AAAAf39/AAAAf39/AAAAf39/AAAAf39/AAAA" type="audio/wav">
       </audio>
@@ -317,10 +315,10 @@
   </div>
 
   <script>
-    // ====== Customize these ======
-    const HER_NAME = "My Love";      // e.g. "Noémi"
-    const YOUR_NAME = "Steph";       // your name
-    // ============================
+    // ====== Personnalisation ======
+    const HER_NAME = "Dorlane";
+    const YOUR_NAME = "Steph";
+    // =============================
 
     const title = document.getElementById("title");
     const subtitle = document.getElementById("subtitle");
@@ -337,11 +335,10 @@
     const confettiEl = document.getElementById("confetti");
     const audio = document.getElementById("audio");
 
-    // Personalize copy
     fromName.textContent = YOUR_NAME;
-    note.textContent = `PS: ${HER_NAME}, you make my days softer.`;
+    note.textContent = `PS : ${HER_NAME}, tu rends mes journées plus douces.`;
 
-    // Floating hearts background
+    // Cœurs flottants
     function spawnHeart(){
       const h = document.createElement("div");
       h.className = "heart";
@@ -358,7 +355,7 @@
     }
     setInterval(spawnHeart, 300);
 
-    // Confetti
+    // Confettis
     function confetti(){
       const pieces = 120;
       for(let i=0;i<pieces;i++){
@@ -366,9 +363,7 @@
         p.className = "piece";
         p.style.left = (Math.random()*100) + "vw";
         p.style.top = (-20 - Math.random()*40) + "px";
-        p.style.transform = `rotate(${Math.random()*180}deg)`;
         p.style.animationDuration = (900 + Math.random()*800) + "ms";
-        // random-ish colors via CSS variables not needed; keep simple with HSL
         const hue = Math.floor(Math.random()*360);
         p.style.background = `hsl(${hue} 90% 65%)`;
         confettiEl.appendChild(p);
@@ -376,10 +371,10 @@
       }
     }
 
-    // Music toggle (tiny sound)
+    // Musique
     let musicOn = false;
     function setMusicLabel(){
-      musicBtn.textContent = musicOn ? "🎵 Music: On" : "🎵 Music: Off";
+      musicBtn.textContent = musicOn ? "🎵 Musique : On" : "🎵 Musique : Off";
     }
     musicBtn.addEventListener("click", async ()=>{
       musicOn = !musicOn;
@@ -393,7 +388,7 @@
     });
     setMusicLabel();
 
-    // Save choice locally (privacy-friendly)
+    // Sauvegarde légère
     function saveChoice(choice){
       try{
         localStorage.setItem("valentine_choice", choice);
@@ -401,41 +396,45 @@
       }catch(e){}
     }
 
-    // “No” becomes a cute mini-flow (NOT a trap)
+    // “Non” = taquin mais respectueux
     const gentleNoPrompts = [
-      "Okay 😌 Would a *tiny* dance with me change your mind? 💃🕺",
-      "No worries. What if I promise: dessert + warm hugs + your favorite movie? 🍰🎬",
-      "Fair. But… do you want to hear a secret? I really, really like you. 🙈",
-      "Understood. Last offer: a date planned by me, approved by you. 🤝✨"
+      "D’accord 😌 Et si je te faisais rire 10 secondes, ça compte ? 😄",
+      "Ok… mais imagine : dîner cosy + activité fun à Paris. Ça tente ? ✨",
+      "Je comprends 🙈 Dernière petite question : tu veux que je te surprenne doucement ? 💗",
+      "C’est noté. Mais tu sais quoi ? Je te trouve incroyablement précieuse. 🌙"
     ];
     let noCount = 0;
 
     function updateNoButton(){
-      // playful: button shrinks a bit but stays usable (still a real choice)
       const scale = Math.max(0.78, 1 - noCount*0.06);
       noBtn.style.transform = `scale(${scale})`;
       noBtn.style.opacity = String(Math.max(0.6, 1 - noCount*0.08));
-      noBtn.textContent = noCount >= 3 ? "No (still no) 🙈" : "No 🙈";
+      noBtn.textContent = noCount >= 3 ? "Non (toujours non) 🙈" : "Non 🙈";
     }
 
     noBtn.addEventListener("click", ()=>{
       noCount++;
       const idx = (noCount - 1) % gentleNoPrompts.length;
       title.textContent = gentleNoPrompts[idx];
-      subtitle.textContent = "Whatever you choose is okay — I’m just flirting. 😌";
-      statusEl.textContent = "If you meant no, you can tap “Not now / I’m not ready” and I’ll respect it.";
+      subtitle.textContent = "Quoi que tu choisisses, ça reste ok. Je flirte, je n’insiste pas. 😌";
+      statusEl.textContent = "Si tu veux dire non pour de vrai, clique “Pas maintenant” — et je respecte totalement.";
       updateNoButton();
       saveChoice("no_clicked");
     });
 
     yesBtn.addEventListener("click", ()=>{
-      title.textContent = `YES?! 😭💖`;
-      subtitle.textContent = `Okay ${HER_NAME}… you just made my heart do backflips.`;
-      statusEl.textContent = "Screenshot this and send it to me 😌 (or just come get your hug).";
+      title.textContent = `OUI ?! 😭💖`;
+      subtitle.textContent = `${HER_NAME}… tu viens de faire des salto à mon cœur.`;
+      statusEl.textContent = "Ok. J’ai un plan trop mignon… prépare-toi 😌";
       confetti();
       if(musicOn){ audio.currentTime = 0; audio.play().catch(()=>{}); }
       saveChoice("yes");
-      // lock buttons after yes (optional)
+
+      // petit délai, puis page 2
+      setTimeout(() => {
+        window.location.href = "./date.html";
+      }, 900);
+
       yesBtn.disabled = true;
       noBtn.disabled = true;
       laterBtn.disabled = true;
@@ -443,22 +442,27 @@
     });
 
     laterBtn.addEventListener("click", ()=>{
-      title.textContent = "Thank you for being honest 🤍";
-      subtitle.textContent = "No worries. I’m here, and I respect you — always.";
-      statusEl.textContent = "If you want, we can talk later. I’m sending you warmth, not pressure.";
-      saveChoice("not_now");
+      title.textContent = "Merci pour ton honnêteté 🤍";
+      subtitle.textContent = "Zéro souci. Je suis là, et je te respecte — toujours.";
+      statusEl.textContent = "Quand tu voudras, on en parle. Je t’envoie de la douceur, pas de pression.";
+      saveChoice("pas_maintenant");
     });
 
     resetBtn.addEventListener("click", ()=>{
       noCount = 0;
-      title.textContent = "Hey love… I made you a tiny universe ✨";
-      subtitle.textContent = "Just one question. No pressure. Only vibes, honesty, and a little bit of magic.";
+      title.textContent = "Coucou… j’ai fabriqué un petit univers pour toi ✨";
+      subtitle.textContent = "Une seule question. Zéro pression. Juste de la douceur, de l’honnêteté, et un peu de magie.";
       statusEl.textContent = "";
       yesBtn.disabled = false; noBtn.disabled = false; laterBtn.disabled = false;
       noBtn.style.transform = "";
       noBtn.style.opacity = "";
-      noBtn.textContent = "No 🙈";
-      try{ localStorage.removeItem("valentine_choice"); localStorage.removeItem("valentine_choice_time"); }catch(e){}
+      noBtn.textContent = "Non 🙈";
+      try{
+        localStorage.removeItem("valentine_choice");
+        localStorage.removeItem("valentine_choice_time");
+        localStorage.removeItem("fun_activity_choice");
+        localStorage.removeItem("date_plan_response");
+      }catch(e){}
     });
   </script>
 </body>

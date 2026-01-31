@@ -1,0 +1,704 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>💖 Notre plan de rendez-vous</title>
+  <style>
+    :root{
+      --bg1:#0b1020;
+      --bg2:#1b0b2a;
+      --card:#0f172aee;
+      --text:#f8fafc;
+      --muted:#cbd5e1;
+      --shadow: 0 20px 60px rgba(0,0,0,.45);
+      --pink: rgba(251,113,133,1);
+      --violet: rgba(167,139,250,1);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      color:var(--text);
+      background: radial-gradient(1200px 800px at 20% 20%, rgba(167,139,250,.25), transparent 60%),
+                  radial-gradient(1000px 700px at 80% 70%, rgba(251,113,133,.25), transparent 60%),
+                  linear-gradient(140deg, var(--bg1), var(--bg2));
+      overflow:hidden;
+    }
+    .wrap{
+      height:100%;
+      display:grid;
+      place-items:center;
+      padding:24px;
+      position:relative;
+    }
+    .card{
+      width:min(980px, 94vw);
+      background: var(--card);
+      border: 1px solid rgba(148,163,184,.18);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      padding: 28px;
+      position:relative;
+      overflow:hidden;
+    }
+    .glow{
+      position:absolute; inset:-80px;
+      background: radial-gradient(circle at 30% 20%, rgba(251,113,133,.18), transparent 55%),
+                  radial-gradient(circle at 75% 70%, rgba(167,139,250,.18), transparent 55%);
+      filter: blur(18px);
+      pointer-events:none;
+    }
+    h1{
+      margin: 6px 0 10px;
+      font-size: clamp(26px, 3.4vw, 42px);
+      line-height:1.15;
+      position:relative;
+      z-index:1;
+    }
+    p{
+      margin: 8px 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height:1.6;
+      position:relative;
+      z-index:1;
+    }
+    .row{
+      display:flex;
+      gap:14px;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      position:relative;
+      z-index:1;
+      margin: 10px 0 18px;
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 12px;
+      border-radius: 999px;
+      background: rgba(2,6,23,.55);
+      border: 1px solid rgba(148,163,184,.16);
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .badge b{color:var(--text); font-weight:800}
+
+    .plan{
+      margin-top: 12px;
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+      position:relative;
+      z-index:1;
+    }
+    .slot{
+      grid-column: span 12;
+      border-radius: 18px;
+      border: 1px solid rgba(148,163,184,.16);
+      background: rgba(2,6,23,.35);
+      padding: 16px;
+      position: relative;
+    }
+    .slot h2{
+      margin:0 0 8px;
+      font-size: 18px;
+      letter-spacing: .2px;
+    }
+    .slot .meta{
+      font-size: 13px;
+      color: rgba(226,232,240,.85);
+      margin-bottom: 10px;
+    }
+    .slot ul{
+      margin: 0;
+      padding-left: 18px;
+      color: rgba(203,213,225,.95);
+      line-height: 1.6;
+    }
+    .slot li{margin:4px 0}
+
+    .grid2 .slot{grid-column: span 6}
+    @media (max-width: 860px){
+      .grid2 .slot{grid-column: span 12}
+    }
+
+    .actions{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top: 18px;
+      position:relative;
+      z-index:1;
+    }
+    button{
+      cursor:pointer;
+      border:none;
+      border-radius: 16px;
+      padding: 12px 16px;
+      font-size: 15px;
+      font-weight: 800;
+      transition: transform .08s ease, filter .2s ease;
+      user-select:none;
+    }
+    button:active{transform: scale(.98)}
+    .primary{
+      background: linear-gradient(135deg, rgba(251,113,133,1), rgba(167,139,250,.9));
+      color: #0b1020;
+      box-shadow: 0 16px 40px rgba(251,113,133,.18);
+    }
+    .secondary{
+      background: rgba(148,163,184,.10);
+      color: rgba(248,250,252,.92);
+      border: 1px solid rgba(148,163,184,.22);
+      font-weight:700;
+    }
+    .whatsapp{
+      background: linear-gradient(135deg, rgba(34,197,94,1), rgba(34,197,94,.75));
+      color: #052e16;
+      box-shadow: 0 16px 40px rgba(34,197,94,.18);
+    }
+    .small{
+      font-size: 12px;
+      color: rgba(203,213,225,.7);
+      margin-top: 10px;
+      position:relative;
+      z-index:1;
+      min-height: 18px;
+    }
+
+    /* Confettis */
+    .confetti{
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      overflow:hidden;
+      z-index: 2;
+    }
+    .piece{
+      position:absolute;
+      width:10px;height:16px;
+      border-radius: 4px;
+      opacity:.95;
+      animation: fall 1200ms ease-in forwards;
+    }
+    @keyframes fall{
+      0%{transform: translateY(-30px) rotate(0deg); opacity:1}
+      100%{transform: translateY(110vh) rotate(540deg); opacity:0}
+    }
+
+    /* ===== Choix interactifs ===== */
+    .choices{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      margin-top: 10px;
+    }
+    .choice{
+      width:100%;
+      display:flex;
+      align-items:center;
+      gap:12px;
+      text-align:left;
+      padding: 12px 12px;
+      border-radius: 16px;
+      background: rgba(2,6,23,.28);
+      border: 1px solid rgba(148,163,184,.18);
+      color: rgba(248,250,252,.95);
+      cursor:pointer;
+      transition: transform .08s ease, filter .2s ease, border-color .2s ease, background .2s ease, box-shadow .2s ease;
+    }
+    .choice:hover{ filter: brightness(1.08); border-color: rgba(148,163,184,.30); }
+    .choice:active{ transform: scale(.99); }
+    .choice .emoji{
+      font-size: 22px;
+      width: 34px;
+      display:grid;
+      place-items:center;
+    }
+    .choice .txt{
+      display:flex;
+      flex-direction:column;
+      gap:2px;
+      flex:1;
+    }
+    .choice .txt b{ font-size: 15px; }
+    .choice .txt .sub{
+      font-size: 12.5px;
+      color: rgba(203,213,225,.85);
+    }
+    .choice .tick{
+      opacity:0;
+      transform: scale(.9);
+      transition: opacity .2s ease, transform .2s ease;
+      font-weight: 900;
+      font-size: 16px;
+      color: rgba(248,250,252,.95);
+    }
+    .choice.selected{
+      background: rgba(251,113,133,.12);
+      border-color: rgba(251,113,133,.45);
+      box-shadow: 0 14px 34px rgba(251,113,133,.10);
+    }
+    .choice.selected .tick{
+      opacity:1;
+      transform: scale(1);
+    }
+    .miniActions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top: 10px;
+    }
+    .miniBtn{
+      border-radius: 14px;
+      padding: 10px 12px;
+      background: rgba(148,163,184,.10);
+      color: rgba(248,250,252,.92);
+      border: 1px solid rgba(148,163,184,.22);
+      font-weight: 800;
+      font-size: 13px;
+    }
+    .pickStatus{
+      margin-top: 10px;
+      font-size: 13px;
+      color: rgba(226,232,240,.9);
+      min-height: 18px;
+    }
+    .stephNote{
+      margin-top: 8px;
+      font-size: 13px;
+      color: rgba(248,250,252,.92);
+      background: rgba(2,6,23,.25);
+      border: 1px solid rgba(148,163,184,.14);
+      padding: 12px 12px;
+      border-radius: 16px;
+    }
+    .stephNote b{color: rgba(248,250,252,.98)}
+
+    /* ===== Timeline animée ===== */
+    .timelineHeader{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .timelineHeader .hint{
+      font-size: 12px;
+      color: rgba(203,213,225,.75);
+    }
+
+    .timeline{
+      margin-top: 12px;
+      position: relative;
+      padding-left: 18px;
+    }
+    .timeline::before{
+      content:"";
+      position:absolute;
+      left:7px;
+      top:6px;
+      bottom:6px;
+      width:2px;
+      background: linear-gradient(180deg, rgba(251,113,133,.55), rgba(167,139,250,.55));
+      border-radius: 999px;
+      opacity:.85;
+      animation: pulseLine 2.2s ease-in-out infinite;
+    }
+    @keyframes pulseLine{
+      0%,100%{filter: brightness(1); opacity:.75}
+      50%{filter: brightness(1.25); opacity:1}
+    }
+
+    .tItem{
+      position: relative;
+      padding: 12px 12px 12px 16px;
+      border-radius: 16px;
+      border: 1px solid rgba(148,163,184,.12);
+      background: rgba(2,6,23,.22);
+      margin: 10px 0;
+      overflow:hidden;
+
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity .6s ease, transform .6s ease, border-color .25s ease, background .25s ease;
+    }
+    .tItem.show{
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .tItem::before{
+      content:"";
+      position:absolute;
+      left:-40px; top:-40px;
+      width:120px; height:120px;
+      background: radial-gradient(circle, rgba(251,113,133,.16), transparent 60%);
+      filter: blur(6px);
+      transform: rotate(18deg);
+      pointer-events:none;
+    }
+
+    .dot{
+      position:absolute;
+      left:-18px;
+      top: 16px;
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(251,113,133,1), rgba(167,139,250,1));
+      box-shadow: 0 10px 30px rgba(251,113,133,.18);
+    }
+    .tTop{
+      display:flex;
+      align-items:baseline;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-bottom: 6px;
+    }
+    .tTime{
+      font-weight: 900;
+      font-size: 12.5px;
+      color: rgba(226,232,240,.92);
+      background: rgba(2,6,23,.25);
+      border: 1px solid rgba(148,163,184,.12);
+      border-radius: 999px;
+      padding: 6px 10px;
+    }
+    .tTitle{
+      font-weight: 900;
+      font-size: 14.5px;
+      color: rgba(248,250,252,.98);
+      letter-spacing: .2px;
+    }
+    .tDesc{
+      color: rgba(203,213,225,.9);
+      font-size: 13.5px;
+      line-height: 1.5;
+    }
+    .tItem.active{
+      border-color: rgba(251,113,133,.42);
+      background: rgba(251,113,133,.08);
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <div class="glow"></div>
+
+      <div class="row">
+        <div class="badge">💞 <b>Plan de rendez-vous</b> • préparé pour <span id="herName">Dorlane</span></div>
+        <div class="badge">📍 <span id="city">Paris</span> • 🗓️ <span id="dateLabel">Saint-Valentin</span></div>
+      </div>
+
+      <h1>Dorlane… on fait ça version “trop mignon” 🥹💖</h1>
+      <p>
+        Dîner cosy, activité fun, zéro stress. Tu peux tout ajuster — moi je veux juste te voir sourire.
+      </p>
+
+      <div class="plan grid2">
+        <div class="slot">
+          <h2>🌆 1) Début doux : petite balade à Paris</h2>
+          <div class="meta">~18:00 • énergie “sans pression”</div>
+          <ul>
+            <li>On se retrouve + un gros câlin (obligatoire 😌).</li>
+            <li>On marche tranquillement, juste pour se mettre bien.</li>
+            <li>Mini jeu : chacun dit une chose qu’il apprécie chez l’autre.</li>
+          </ul>
+        </div>
+
+        <div class="slot">
+          <h2>🕯️ 2) Dîner cosy (ton vibe)</h2>
+          <div class="meta">~19:00 • bougies + douceur</div>
+          <ul>
+            <li>Un endroit intimiste : lumière chaude, ambiance tranquille.</li>
+            <li>On partage une entrée (oui, c’est mignon).</li>
+            <li>Dessert obligatoire. On choisit ensemble.</li>
+          </ul>
+        </div>
+
+        <!-- ACTIVITÉ FUN INTERACTIVE -->
+        <div class="slot" id="funSlot">
+          <h2>🎯 3) Activité fun (tape pour choisir)</h2>
+          <div class="meta">~20:45 • mode “on rigole” activé</div>
+
+          <div class="choices" role="group" aria-label="Choix d'activité fun">
+            <button type="button" class="choice" data-choice="Arcade / jeux">
+              <span class="emoji">🕹️</span>
+              <span class="txt">
+                <b>Arcade / jeux</b>
+                <span class="sub">Petit challenge + gros fous rires.</span>
+              </span>
+              <span class="tick" aria-hidden="true">✓</span>
+            </button>
+
+            <button type="button" class="choice" data-choice="Bowling / mini-golf">
+              <span class="emoji">🎳</span>
+              <span class="txt">
+                <b>Bowling / mini-golf</b>
+                <span class="sub">Team Dorlane + Steph 😄</span>
+              </span>
+              <span class="tick" aria-hidden="true">✓</span>
+            </button>
+
+            <button type="button" class="choice" data-choice="Cabine photo (challenge)">
+              <span class="emoji">📸</span>
+              <span class="txt">
+                <b>Cabine photo (challenge)</b>
+                <span class="sub">3 photos, 3 humeurs, 1 souvenir.</span>
+              </span>
+              <span class="tick" aria-hidden="true">✓</span>
+            </button>
+          </div>
+
+          <div class="miniActions">
+            <button type="button" class="miniBtn" id="randomPick">🎲 Choix au hasard</button>
+            <button type="button" class="miniBtn" id="clearPick">✖ Effacer</button>
+          </div>
+
+          <div class="pickStatus" id="pickStatus"></div>
+          <div class="stephNote" id="stephNote"><b>Note de Steph :</b> Choisis ton activité et je m’adapte 😌</div>
+        </div>
+
+        <div class="slot">
+          <h2>🌙 4) Fin cosy (tout doux)</h2>
+          <div class="meta">~22:15 • calme + sécurité</div>
+          <ul>
+            <li>Chocolat chaud / thé dans un endroit tranquille.</li>
+            <li>Je te donne une petite note écrite à la main.</li>
+            <li>On termine par un long câlin et un “à très vite”.</li>
+          </ul>
+        </div>
+
+        <!-- Timeline animée -->
+        <div class="slot" style="grid-column: span 12;" id="timelineSlot">
+          <div class="timelineHeader">
+            <div>
+              <h2 style="margin:0 0 6px;">🕰️ Timeline du soir (animée)</h2>
+              <div class="meta" style="margin:0;">Une petite histoire en 4 moments.</div>
+            </div>
+            <div class="hint">Astuce : choisis une activité 🎯 → la timeline se met à jour ✨</div>
+          </div>
+
+          <div class="timeline" id="timeline"></div>
+        </div>
+
+        <div class="slot" style="grid-column: span 12;">
+          <h2>✨ Tes préférences (mini check)</h2>
+          <div class="meta">Tu choisis, j’ajuste. Simple.</div>
+          <ul>
+            <li><b>Dîner :</b> plutôt cuisine française / italienne / autre ?</li>
+            <li><b>Activité :</b> tape ci-dessus pour choisir 🎯</li>
+            <li><b>Heure :</b> plus tôt / plus tard ?</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="primary" id="confirmBtn">J’adore 💖</button>
+        <button class="secondary" id="tweakBtn">On ajuste ✨</button>
+        <button class="whatsapp" id="whatsBtn">Envoyer sur WhatsApp 💬</button>
+        <button class="secondary" id="backBtn">Retour</button>
+      </div>
+
+      <div class="small" id="status"></div>
+      <div class="confetti" id="confetti"></div>
+    </div>
+  </div>
+
+  <script>
+    // Personnalisation
+    const HER_NAME = "Dorlane";
+    const CITY = "Paris";
+    const DATE_LABEL = "Saint-Valentin";
+
+    // Ton numéro WhatsApp (format international sans "+")
+    const WHATSAPP_NUMBER = "41792667698";
+
+    document.getElementById("herName").textContent = HER_NAME;
+    document.getElementById("city").textContent = CITY;
+    document.getElementById("dateLabel").textContent = DATE_LABEL;
+
+    const status = document.getElementById("status");
+    const confettiEl = document.getElementById("confetti");
+
+    function confetti(intensity = 120){
+      const pieces = intensity;
+      for(let i=0;i<pieces;i++){
+        const p = document.createElement("div");
+        p.className = "piece";
+        p.style.left = (Math.random()*100) + "vw";
+        p.style.top = (-20 - Math.random()*40) + "px";
+        p.style.animationDuration = (900 + Math.random()*800) + "ms";
+        const hue = Math.floor(Math.random()*360);
+        p.style.background = `hsl(${hue} 90% 65%)`;
+        confettiEl.appendChild(p);
+        setTimeout(()=>p.remove(), 2000);
+      }
+    }
+    // confetti d’accueil léger
+    confetti(90);
+
+    // Affiche si “Oui” a été enregistré
+    try{
+      const choice = localStorage.getItem("valentine_choice");
+      const t = localStorage.getItem("valentine_choice_time");
+      if(choice === "yes"){
+        status.textContent = `Enregistré : OUI ✅ ${t ? "• " + new Date(t).toLocaleString() : ""}`;
+      }
+    }catch(e){}
+
+    // ===== Timeline animée (avec mise à jour selon activité) =====
+    const timelineEl = document.getElementById("timeline");
+
+    function timelineData(activity){
+      const actLine = activity
+        ? `On part sur : <b>${activity}</b> 😄`
+        : "On choisit l’activité ensemble… ou tu tapes plus haut 🎯";
+
+      return [
+        { time:"18:00", title:"Balade & câlin", desc:"On se retrouve, on se met bien. Téléphones en mode discret 20 minutes. Juste nous." },
+        { time:"19:00", title:"Dîner cosy", desc:"Ambiance bougies. On partage une entrée. Dessert obligatoire (on choisit ensemble)." },
+        { time:"20:45", title:"Activité fun", desc: actLine },
+        { time:"22:15", title:"Fin douce", desc:"Boisson chaude + petite note écrite à la main. Long câlin, et “à très vite”." }
+      ];
+    }
+
+    function renderTimeline(activity){
+      timelineEl.innerHTML = "";
+      const items = timelineData(activity);
+
+      items.forEach((it, idx) => {
+        const div = document.createElement("div");
+        div.className = "tItem";
+        div.innerHTML = `
+          <div class="dot"></div>
+          <div class="tTop">
+            <div class="tTitle">${it.title}</div>
+            <div class="tTime">${it.time}</div>
+          </div>
+          <div class="tDesc">${it.desc}</div>
+        `;
+        timelineEl.appendChild(div);
+
+        // animation en cascade
+        setTimeout(() => div.classList.add("show"), 120 + idx * 140);
+      });
+
+      // surligne l’étape activité si elle est choisie
+      if(activity){
+        const third = timelineEl.querySelectorAll(".tItem")[2];
+        if(third) third.classList.add("active");
+      }
+    }
+
+    // ===== Boutons bas =====
+    document.getElementById("confirmBtn").addEventListener("click", ()=>{
+      confetti(140);
+      const activity = (localStorage.getItem("fun_activity_choice") || "").trim();
+      const extra = activity ? ` (activité : ${activity})` : "";
+      status.textContent = `Yesss 💖 Tu peux me faire une capture d’écran : “J’adore”${extra} 😌`;
+      try{ localStorage.setItem("date_plan_response","jadore"); }catch(e){}
+    });
+
+    document.getElementById("tweakBtn").addEventListener("click", ()=>{
+      const activity = (localStorage.getItem("fun_activity_choice") || "").trim();
+      status.textContent = activity
+        ? `Ok ✨ Tu veux ajuster quoi ? (on garde ${activity} ou tu changes ?)`
+        : "Ok ✨ Tu veux ajuster quoi ? Dîner, activité, horaire… je m’adapte.";
+      try{ localStorage.setItem("date_plan_response","ajuster"); }catch(e){}
+    });
+
+    document.getElementById("backBtn").addEventListener("click", ()=>{
+      window.location.href = "./index.html";
+    });
+
+    // ===== WhatsApp pré-rempli =====
+    function buildWhatsappUrl(){
+      const activity = (localStorage.getItem("fun_activity_choice") || "").trim();
+      const when = DATE_LABEL ? `pour ${DATE_LABEL}` : "pour notre date";
+      const activityLine = activity ? `J’ai choisi l’activité : ${activity} 🎯` : "Je n’ai pas encore choisi l’activité 🎯";
+      const msg =
+        `Coucou Steph 💖\n` +
+        `J’ai vu ton plan à Paris… et j’adore 🥹✨\n` +
+        `${activityLine}\n` +
+        `On se fait ça ${when} ? 😘`;
+      const encoded = encodeURIComponent(msg);
+      return `https://wa.me/${WHATSAPP_NUMBER}?text=${encoded}`;
+    }
+
+    document.getElementById("whatsBtn").addEventListener("click", ()=>{
+      // petite célébration avant d’ouvrir WhatsApp
+      confetti(70);
+      window.open(buildWhatsappUrl(), "_blank", "noopener,noreferrer");
+    });
+
+    // ===== Activité fun interactive + mini confettis + note Steph + update timeline =====
+    const choiceButtons = Array.from(document.querySelectorAll(".choice"));
+    const pickStatus = document.getElementById("pickStatus");
+    const randomPickBtn = document.getElementById("randomPick");
+    const clearPickBtn = document.getElementById("clearPick");
+    const stephNote = document.getElementById("stephNote");
+
+    const notesByChoice = {
+      "Arcade / jeux": "Arcade ? Ok… je viens avec mon sourire “je te laisse gagner (peut-être)” 😄",
+      "Bowling / mini-golf": "Team Dorlane + Steph 😄 Prépare-toi : je célèbre tes points comme si c’était la coupe du monde.",
+      "Cabine photo (challenge)": "Cabine photo… parfait. Je veux qu’on reparte avec un souvenir qu’on garde longtemps. 📸💖"
+    };
+
+    function miniConfetti(){
+      confetti(50);
+    }
+
+    function setSelected(choiceText){
+      choiceButtons.forEach(btn => {
+        const isSel = btn.dataset.choice === choiceText;
+        btn.classList.toggle("selected", isSel);
+        btn.setAttribute("aria-pressed", isSel ? "true" : "false");
+      });
+
+      if(choiceText){
+        pickStatus.textContent = `Choisi : ${choiceText} ✅`;
+        try{ localStorage.setItem("fun_activity_choice", choiceText); }catch(e){}
+        stephNote.innerHTML = `<b>Note de Steph :</b> ${notesByChoice[choiceText] || "Parfait. Je m’occupe du reste 😌"}`;
+        miniConfetti();
+        renderTimeline(choiceText); // 🔥 met à jour la timeline
+      }else{
+        pickStatus.textContent = "";
+        try{ localStorage.removeItem("fun_activity_choice"); }catch(e){}
+        stephNote.innerHTML = "<b>Note de Steph :</b> Choisis ton activité et je m’adapte 😌";
+        renderTimeline(""); // reset
+      }
+    }
+
+    choiceButtons.forEach(btn => {
+      btn.setAttribute("aria-pressed", "false");
+      btn.addEventListener("click", () => setSelected(btn.dataset.choice));
+    });
+
+    // Restore
+    let saved = "";
+    try{
+      saved = (localStorage.getItem("fun_activity_choice") || "").trim();
+      if(saved) setSelected(saved);
+    }catch(e){}
+
+    // Si rien de sauvegardé : timeline par défaut
+    if(!saved) renderTimeline("");
+
+    randomPickBtn?.addEventListener("click", () => {
+      const options = choiceButtons.map(b => b.dataset.choice);
+      const pick = options[Math.floor(Math.random() * options.length)];
+      setSelected(pick);
+    });
+
+    clearPickBtn?.addEventListener("click", () => setSelected(null));
+  </script>
+</body>
+</html>
